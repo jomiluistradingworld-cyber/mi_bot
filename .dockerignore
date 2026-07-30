@@ -1,0 +1,10 @@
+# Docker ignore
+.git
+.github
+__pycache__
+*.pyc
+.env
+.venv
+models/
+exports/
+tests/

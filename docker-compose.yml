@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  bot_api:
+    build: .
+    container_name: mi_bot_app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - ./models:/app/models
+      - ./exports:/app/exports
+    depends_on:
+      - llama_server
+
+  llama_server:
+    image: ghcr.io/ggerganov/llama.cpp:full
+    container_name: llama_server
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./models:/models
+    command: "-m /models/dolphin-2.7b-q4_k_m.gguf --port 8080 --host 0.0.0.0 -c 2048"
+    # Replace the model path in the command if you use a different file

@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+pytelegrambotapi
+openai
+sqlalchemy>=2.0
+pydantic-settings
+jinja2
+python-multipart
+textblob
+nltk
+pandas
+pytest
+ruff

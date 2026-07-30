@@ -1,0 +1,26 @@
+[project]
+name = "mi_bot"
+version = "0.1.0"
+description = "Telegram Bot with Local AI and Personality Profiles"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "pytelegrambotapi",
+    "openai",
+    "sqlalchemy>=2.0",
+    "pydantic-settings",
+    "jinja2",
+    "python-multipart",
+    "textblob",
+    "nltk",
+    "pandas",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

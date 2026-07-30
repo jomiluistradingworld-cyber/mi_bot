@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-indigo-500">
+        <p class="text-gray-500 text-sm uppercase font-bold">Total Usuarios</p>
+        <p class="text-3xl font-black">{{ user_count }}</p>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-500">
+        <p class="text-gray-500 text-sm uppercase font-bold">Mensajes Totales</p>
+        <p class="text-3xl font-black">{{ msg_count }}</p>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-yellow-500">
+        <p class="text-gray-500 text-sm uppercase font-bold">Estado Servidor</p>
+        <p class="text-xl font-bold text-green-600">Online</p>
+    </div>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+    <div class="p-6 border-b flex justify-between items-center">
+        <h2 class="text-xl font-bold">Usuarios Recientes</h2>
+        <input type="text" name="search" placeholder="Buscar usuario..." 
+               class="border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"
+               hx-get="/api/users" hx-trigger="keyup changed delay:500ms" hx-target="#user-table">
+    </div>
+    <div id="user-table" class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead class="bg-gray-50 text-gray-600 uppercase text-xs font-semibold">
+                <tr>
+                    <th class="px-6 py-3">Telegram ID</th>
+                    <th class="px-6 py-3">Username</th>
+                    <th class="px-6 py-3">Última vez visto</th>
+                    <th class="px-6 py-3 text-right">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y">
+                {% for user in users %}
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="px-6 py-4 font-mono text-sm">{{ user.telegram_id }}</td>
+                    <td class="px-6 py-4 text-sm">{{ user.username or 'Sin nombre' }}</td>
+                    <td class="px-6 py-4 text-sm text-gray-500">{{ user.last_seen.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="/api/users/{{ user.telegram_id }}" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">Ver Detalle &rarr;</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
